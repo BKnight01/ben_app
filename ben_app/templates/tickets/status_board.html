@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style type="text/css">
+        #ticketList {
+            list-style-type: none;
+            padding: 0px;
+        }
+        .ticket {
+            margin: 10px;
+            border-style: solid;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: bold;
+            width: 85%;
+            float: right;
+        }
+        #title {
+            font-weight: bold;
+            font-size: 20px
+        }
+        #category {
+            color: red;
+        }
+        #create {
+            color: grey;
+            float: right;
+            margin: 0;
+        }
+        #top h1 {
+            margin: 0;
+        }
+        #top {
+            margin: 5px;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .ticketFields {
+            word-wrap: break-word;
+        }
+        .lists {
+            width: 32%;
+            float: left;
+        }
+
+    </style>
+
+    <div id = "top">
+        <a href="{% url 'ticket_create' %}"><i id = "create" class="fa fa-plus fa-3x"></i></a>
+        <h1>Status Board</h1>
+    </div>
+
+    {% for lists in ticket_list %}
+        <div class = "lists">
+        {% for ticket in lists %}
+            <div class = "ticket">
+                <list>
+                    <h2><div class = "ticketFields" id = "title">{{ ticket.title }}</div></h2>
+                    <hr>
+                    <ul id="ticketList">
+                        <li><div class = "ticketFields" id = "author">Author: {{ ticket.author }} </div></li>
+                        <li><div class = "ticketFields" id = "category">Severity: {{ ticket.category }} </div></li>
+                        <li><div class = "ticketFields" id = "status">Status: {{ ticket.status }} </div></li>
+                        <hr>
+                        <li><div class = "ticketFields" id = "description">{{ ticket.description }}</div></li>
+                        <hr>
+                        <li><div class = "ticketFields" id = "rating">Rating: </div></li>
+                        <li></li>
+                    </ul>
+                </list>
+            </div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

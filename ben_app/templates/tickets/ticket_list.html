@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load ticket_features %}
+
+{% block content %}
+    <style type="text/css">
+        #ticketList {
+            list-style-type: none;
+            padding: 0px;
+        }
+        .ticket {
+            margin: 10px;
+            border-style: solid;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: bold;
+            width: 48%;
+            float: left;
+        }
+        #title {
+            font-weight: bold;
+            font-size: 20px
+        }
+        #category {
+            color: red;
+        }
+        #create {
+            color: grey;
+            float: right;
+            margin: 0;
+        }
+        #edit {
+            color: grey;
+            float: right;
+        }
+        #delete {
+            color: grey;
+            float: right;
+            margin-left: 5px;
+        }
+        #top h1 {
+            margin: 0;
+        }
+        #top {
+            margin: 5px;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .ticketFields {
+            word-wrap: break-word;
+        }
+        #search {
+            color: grey;
+            float: right;
+            margin-right: 10px;
+        }
+
+    </style>
+
+    <div id = "top">
+        <a href="{% url 'ticket_create' %}"><i id = "create" class="fa fa-plus fa-3x"></i></a>
+        <a href="{% url 'ticket_search' %}"><i id="search" class="fa fa-search fa-3x"></i></a>
+        <h1>Tickets List</h1>
+    </div>
+
+    {% for ticket in tickets %}
+        <div class = "ticket">
+            <a id = "delete" href="{% url 'ticket_delete' pk=ticket.pk %}"><i class="fa fa-trash-o fa-2x"></i></a>
+            <a id = "edit" href="{% url 'ticket_edit' pk=ticket.pk %}"><i class="fa fa-pencil fa-2x"></i></a>
+            <list>
+                <h2><div class = "ticketFields" id = "title">{{ ticket.title }}</div></h2>
+                <hr>
+                <ul id="ticketList">
+                    <li><div class = "ticketFields" id = "author">Author: {{ ticket.author }} </div></li>
+                    <li><div class = "ticketFields" id = "category">Severity: {{ ticket.category }} </div></li>
+                    <li><div class = "ticketFields" id = "status">Status: {{ ticket.status }} </div></li>
+                    <hr>
+                    <li><div class = "ticketFields" id = "description">{{ ticket.description }}</div></li>
+                    <hr>
+                    <li><div class = "ticketFields" id = "rating">Rating: {% star_replace ticket.rating %}</div></li>
+                    <li></li>
+                </ul>
+            </list>
+        </div>
+    {% endfor %}
+
+{% endblock %}

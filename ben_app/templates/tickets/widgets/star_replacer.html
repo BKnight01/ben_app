@@ -1,0 +1,37 @@
+<!-- Rating Stars Widget -->
+
+<input id="id_{{ name }}" name="{{ name }}" value = "{{ value }}" type="hidden"/>
+
+{% for item in n %}
+    <i id="{{ name }}_{{ forloop.counter }}s" class='fa fa-star-o' style="cursor: pointer;" onclick="{{ name }}_update({{ forloop.counter }})"></i>
+{% endfor %}
+
+<script type="text/javascript">
+    // if it is a new ticket, leave all of the stars blank.
+    window.onload = {{ name }}_update({{ value }})
+
+    function {{ name }}_update(value) {
+        var chosenStar_id = "id_{{ name }}";
+
+        for (var i = 1 ; i < (({{ n }}).length + 1); i++) {
+            var icon_id = "{{ name }}_" + i + "s";
+
+            console.log(icon_id + " " + value)
+
+            if (i == value) {
+                document.getElementById(icon_id).className = "fa fa-star";
+                document.getElementById(chosenStar_id).value = (value);
+            }
+            else if (i <= value){
+                document.getElementById(icon_id).className = "fa fa-star";
+            }
+            else {
+                document.getElementById(icon_id).className = 'fa fa-star-o';
+            }
+        }
+    }
+
+    {% if widget.value is not None %}
+        {{ widget.name }}_update({{ widget.value }});
+    {% endif %}
+</script>

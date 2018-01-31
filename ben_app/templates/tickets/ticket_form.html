@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <h1>Create a Ticket</h1>
+        <form method="POST">{% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Save" style="margin-bottom: 15px; margin-top: 10px;"/>
+        </form>
+{% endblock %}
